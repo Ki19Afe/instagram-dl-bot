@@ -15,7 +15,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 #Logger Setup
 logger = logging.getLogger(__name__)
 
-TOKEN = "YOUR_TOKEN_HERE"
+TOKEN = os.getenv('BOTFATHER_TOKEN')
 
 def download(update: Update, context: CallbackContext):
     message = update.effective_message
@@ -58,7 +58,7 @@ def download(update: Update, context: CallbackContext):
         context.bot.sendMessage(chat_id=update.message.chat_id, text="Kindly Send Me Public Instagram Video/Photo Url")
 
 def main():
-    updater = Updater(TOKEN, use_context=True)
+    updater = Updater(, use_context=True)
     dp = updater.dispatcher
     logger.info("Setting Up MessageHandler")
     dp.add_handler(MessageHandler(Filters.text, download))
